@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Blockly Python</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="blocks_compressed.js"></script>
+        <script src="blockly_compressed.js"></script>
+        <script src="python.js"></script>
+        <script src="python_compressed.js"></script>
+        <script src="generator.js"></script>
+        <script src="msg/js/en.js"></script>
+        <script src="Myblocks_definition.js"></script>
+        <script src="Mygenerator.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+        <style>
+            body {
+              background-color: #fff;
+              font-family: sans-serif;
+            }
+            h1 {
+              font-weight: normal;
+              font-size: 140%;
+            }
+        </style>   
+    </head>
+    <body>
+        <div id="blocklyDiv" style="margin: 10px; padding:5px; float:left; height: 480px; width: 600px;background-color:#7FFFD4">
+            <xml id="toolbox" style="display: none;">
+                <category name="Control" colour = "240">
+                    <block type="if"></block>
+                    <block type="if_else"></block>
+                    <block type="if_elif_else"></block>
+                </category>
+                <sep gap="12"></sep>
+                <category name="Loops" colour = "120">
+                    <block type="for"></block>
+                    <block type ="while"></block>
+                </category>
+                <sep gap="12"></sep>               
+                <category name="Logic" colour = "290">
+                    <block type="compare">
+                        <field name="operator">E</field>
+                    </block>
+                    <sep gap="55"></sep>
+                    <block type="boolean_logic">
+                        <field name="bool_operator">AND</field>
+                    </block>
+                    <block type ="not"></block>
+                    <block type="true_false">
+                        <field name="bool_operator">TRUE</field>
+                    </block>
+                </category>
+                <sep gap="12"></sep>                
+                <category name="Text" colour = "160">
+                    <block type="print">
+                        <field name="NAME1">apice</field>
+                        <field name="NAME2">apice</field>
+                    </block>
+                    <block type="inser_text">
+                        <field name="text_input">add a text</field>
+                    </block>
+                    <sep gap="55"> </sep>
+                    <block type ="lengthof"></block>
+                </category>
+                <sep gap="12"></sep>             
+                <category name="Math" colour = "360">
+                    <block type="number">
+                        <field name="input_number">0</field>
+                    </block>
+                    <block type ="operation"></block>
+                </category>
+                <sep gap="12"></sep>                
+                <category name="Variables" colour = "72">                  
+                    <block type="variable_init">
+                        <field name="VAR">Variable</field>
+                    </block>
+                    <block type="lista">
+                        <field name="list">1, 2, 3, 4</field>
+                    </block>
+                    <block type="free_input">
+                        <field name="input_free">free block</field>
+                    </block> 
+                    <sep gap="55"></sep>
+                    <block type="assegnamento"></block>
+                </category>
+                <sep gap="12"></sep>                
+                <category name="Constants" colour = "330">
+                    <block type="nan"></block>
+                </category>
+                <sep gap="12"></sep>              
+                <category name="Functions" colour = "195">
+                    <block type="def_function">
+                        <field name="name_function">name</field>
+                        <field name="par">parameters</field>
+                    </block>
+                    <sep gap="55"> </sep>
+                    <block type="chiamata">
+                        <field name="name_fun">name</field>
+                        <field name="par_fun">parametres</field>
+                    </block>
+                    <block type="chiamata_return">
+                        <field name="name_fun">name</field>
+                        <field name="par_fun">parametres</field>
+                    </block>
+                    <sep gap="55"> </sep>
+                    <block type="return"></block>
+                </category>
+                <sep gap="12"></sep>
+                <category name="Comment" colour = "45">                  
+                    <block type="comment">
+                        <field name="commento">Inserire un commento</field>
+                    </block>
+                </category>
+                <sep gap="12"></sep>
+            </xml>
+        </div>
+       
+        <div style="margin: 10px; padding:5px; float:left; height: 315px; width: 465px; background-color:#7FFFD4"> 
+            <textarea id="python-code" rows="20" cols="61"></textarea>
+            <p>
+                <button onclick="executeCode()">Esegui</button> 
+            </p>          
+            <pre id="execution-result" style="border: thin solid black; background-color:#E0FFFF">
+
+            </pre>
+        </div>    
+
+              
+        <script>               
+            var workspace = Blockly.inject('blocklyDiv',
+                                            {toolbox: document.getElementById('toolbox')});           
+            workspace.addChangeListener(myChangeListener);          
+            function myChangeListener() {      
+                var code = Blockly.Python.workspaceToCode(workspace);
+                element = document.getElementById('python-code');
+                element.innerHTML = code;
+            } 
+        
+        </script>  
+        <script>
+        function executeCode() {
+            var code = $('#python-code').val();
+            $.ajax({
+                url: 'http://pybox.lionlab.org',
+                type: 'POST',
+                data: code,
+                contentType: 'text/x-python-source',
+                success: function(data) {
+                    console.log(data);
+                    if (data.success == 0)
+                        $('#execution-result').text(data.reason);
+                    else
+                        $('#execution-result').text(data.output);
+                },
+                error: function(jqXHR, status, errorThrown) {
+                    console.log(errorThrown);
+                    $('#execution-result').text('ERROR: ' + JSON.stringify(errorThrown));
+                }
+            });
+        }
+    </script>
+    </body>
+</html>
