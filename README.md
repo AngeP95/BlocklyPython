@@ -1,8 +1,8 @@
 # BlocklyPython
 
 BlocklyPython è composto di tre file:
-Myindex.html, Myblocks_definitions.js, Mygenerator.js.
+index.html, Myblocks_definitions.js, Mygenerator.js.
 
 Per eseguire:
-1.  Clonare il contenuto della directory 'blockly', reperibile al link https://developers.google.com/blockly/, all'interno della directory     BlocklyPython.
-2.  Eseguire il file Myindex.html.
+1.  Clonare il contenuto della directory reperibile al link https://github.com/google/blockly, all'interno della directory     BlocklyPython. Prestare attenzione che il nome della directory clonata sia "blockly". 
+2.  Eseguire il file index.html.
