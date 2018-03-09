@@ -9,12 +9,12 @@ and open the template in the editor.
         <title>Blockly Python</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="blocks_compressed.js"></script>
-        <script src="blockly_compressed.js"></script>
-        <script src="python.js"></script>
-        <script src="python_compressed.js"></script>
-        <script src="generator.js"></script>
-        <script src="msg/js/en.js"></script>
+        <script src="blockly/blocks_compressed.js"></script>
+        <script src="blockly/blockly_compressed.js"></script>
+        <script src="blockly/python.js"></script>
+        <script src="blockly/python_compressed.js"></script>
+        <script src="blockly/generator.js"></script>
+        <script src="blockly/msg/js/en.js"></script>
         <script src="Myblocks_definition.js"></script>
         <script src="Mygenerator.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
@@ -121,7 +121,7 @@ and open the template in the editor.
             </xml>
         </div>
        
-        <div style="margin: 10px; padding:5px; float:left; height: 315px; width: 465px; background-color:#7FFFD4"> 
+        <div style="margin: 10px; padding:5px; float:left; height: 307px; width: 450px; background-color:#7FFFD4"> 
             <textarea id="python-code" rows="20" cols="61"></textarea>
             <p>
                 <button onclick="executeCode()">Esegui</button> 
@@ -147,7 +147,7 @@ and open the template in the editor.
         function executeCode() {
             var code = $('#python-code').val();
             $.ajax({
-                url: 'http://pybox.lionlab.org',
+                url: 'https://pybox.lionlab.org/',
                 type: 'POST',
                 data: code,
                 contentType: 'text/x-python-source',
