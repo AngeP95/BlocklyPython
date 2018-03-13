@@ -42,7 +42,7 @@ Blockly.Python.INDENT = '   ';
         var value_variable = Blockly.Python.valueToCode(block, 'variable', Blockly.Python.ORDER_ATOMIC)|| "i";
         var value_range = Blockly.Python.valueToCode(block, 'range', Blockly.Python.ORDER_ATOMIC) || "[]";
         var statements_for_body = Blockly.Python.statementToCode(block, 'for_body') ||Blockly.Python.PASS;  
-        var code = 'for ' + value_variable + ' in  ' + value_range + ': \n' + statements_for_body;
+        var code = 'for ' + value_variable + ' in ' + value_range + ' : \n' + statements_for_body;
         return code;
 };
 //while
@@ -194,21 +194,21 @@ Blockly.Python.INDENT = '   ';
         var text_name_function = block.getFieldValue('name_function');
         var text_par = block.getFieldValue('par');
         var statements_function_body = Blockly.Python.statementToCode(block, 'function_body');
-        var code = 'def ' + text_name_function + '(' + text_par + '): \n' + statements_function_body;
+        var code = 'def ' + text_name_function + ' (' + text_par + '): \n' + statements_function_body;
         return code;
 };
 //chiamata senza return
     Blockly.Python['chiamata'] = function(block) {
         var text_name_fun = block.getFieldValue('name_fun');
         var text_par_fun = block.getFieldValue('par_fun');
-        var code = text_name_fun + '(' + text_par_fun + ')' + '\n' ;
+        var code = text_name_fun + ' (' + text_par_fun + ')' + '\n' ;
         return code;
 };
 //chiamata con return
     Blockly.Python['chiamata_return'] = function(block) {
         var text_name_fun = block.getFieldValue('name_fun');
         var text_par_fun = block.getFieldValue('par_fun');
-        var code = text_name_fun + '(' + text_par_fun + ')';
+        var code = text_name_fun + ' (' + text_par_fun + ')';
         return [code, Blockly.Python.ORDER_ATOMIC];
 };
 //return
